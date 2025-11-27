@@ -1,33 +1,93 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [firstValue, setFirstValue] = useState('')
+  const [secondValue, setSecondValue] = useState('')
+  const [answer, setAnswer] = useState('')
+  const [operation, setOperation] = useState('')
+  const [lastOperation, setLastOperation] = useState('')
+
+
+  function addition() {
+    if (firstValue && secondValue) {
+      let num1 = parseFloat(firstValue)
+      let num2 = parseFloat(secondValue)
+      setAnswer(num1 + num2)
+      setOperation('+')
+    }
+  }
+
+  function division() {
+    if (firstValue && secondValue) {
+      let num1 = parseFloat(firstValue)
+      let num2 = parseFloat(secondValue)
+      setOperation('/')
+      if (num2 !== 0) {
+        setAnswer(num1 / num2)
+      } else {
+        setAnswer('Ошибка: деление на ноль')
+      }
+    }
+  }
+
+  function substraction() {
+    if (firstValue && secondValue) {
+      let num1 = parseFloat(firstValue)
+      let num2 = parseFloat(secondValue)
+      setAnswer(num1 - num2)
+      setOperation('-')
+    }
+  }
+
+  function multiplication() {
+    if (firstValue && secondValue) {
+      let num1 = parseFloat(firstValue)
+      let num2 = parseFloat(secondValue)
+      setAnswer(num1 * num2)
+      setOperation('*')
+    }
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <header className="main-header">
+        <h1>Простой калькулятор</h1>
+      </header>
+
+      <div className="input-lines">
+        <div className="input-line">
+          <input type="number" onChange={(e) => setFirstValue(e.target.value)} placeholder="Первое число"></input>
+        </div>
+        <div className="input-line">
+          <input type="number" onChange={(e) => setSecondValue(e.target.value)} placeholder="Второе число"></input>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+
+      <div className="operation-line">
+        <div className="container">
+          <button className="addition" onClick={addition}>+</button>
+        </div>
+
+        <div className="container">
+          <button className="substraction" onClick={substraction}>-</button>
+        </div>
+
+        <div className="container">
+          <button className="multiplication" onClick={multiplication}>*</button>
+        </div>
+
+        <div className="container">
+          <button className="division" onClick={division}>/</button>
+        </div>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+
+      <div className='container'>
+        <div className="output-line">
+          <span className="output-line-value">{firstValue} {operation} {secondValue} = {answer}</span>
+        </div>
+      </div>
+
     </>
   )
 }
